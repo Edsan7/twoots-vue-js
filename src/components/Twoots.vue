@@ -9,20 +9,20 @@
 
 <script>
 export default {
-  name: "Twoots",
+  name: 'Twoots',
   props: {
     username: String,
     twoot: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   methods: {
-    favouriteTwoot(id) {
-      this.$emit("favourite", id);
-    },
-  },
-};
+    favouriteTwoot (id) {
+      this.$emit('favourite', id)
+    }
+  }
+}
 </script>
 
 <style scoped>

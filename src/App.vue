@@ -1,16 +1,14 @@
 <template>
   <div id="app">
     <default-navbar />
-    <user-profile />
+    <router-view />
   </div>
 </template>
 
 <script>
 import DefaultNavbar from './components/DefaultNavbar.vue'
-import UserProfile from './components/UserProfile.vue'
-
 export default {
-  components: { UserProfile, DefaultNavbar },
+  components: { DefaultNavbar },
   name: 'App'
 }
 </script>

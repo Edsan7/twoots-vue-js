@@ -47,68 +47,68 @@
 </template>
 
 <script>
-import Twoots from "./Twoots.vue";
+import Twoots from '../components/Twoots'
 export default {
-  name: "UserProfile",
+  name: 'UserProfile',
   components: { Twoots },
-  data() {
+  data () {
     return {
       followers: 0,
-      newTwoot: "",
-      typeOfTwoot: "instant",
+      newTwoot: '',
+      typeOfTwoot: 'instant',
       twootOptions: [
-        { value: "draft", text: "Draft" },
-        { value: "instant", text: "Instant" },
+        { value: 'draft', text: 'Draft' },
+        { value: 'instant', text: 'Instant' }
       ],
       user: {
         id: 1,
-        username: "edsan7",
-        firstName: "Edson",
-        lastName: "Junior",
-        github: "github.com/Edsan7",
+        username: 'edsan7',
+        firstName: 'Edson',
+        lastName: 'Junior',
+        github: 'github.com/Edsan7',
         isAdmin: true,
         twoots: [
-          { id: 1, content: "My first twoot!" },
+          { id: 1, content: 'My first twoot!' },
           { id: 2, content: "I'm learning Vue" },
-          { id: 3, content: "This is a list of twoots!" },
-        ],
-      },
-    };
+          { id: 3, content: 'This is a list of twoots!' }
+        ]
+      }
+    }
   },
   methods: {
-    addFollower() {
-      this.followers++;
+    addFollower () {
+      this.followers++
     },
-    toogleFavourite(id) {
-      console.log("Favourited Tweet " + id);
+    toogleFavourite (id) {
+      console.log('Favourited Tweet ' + id)
     },
-    createNewTwoot() {
-      if (this.typeOfTwoot !== "draft" && this.newTwoot) {
+    createNewTwoot () {
+      if (this.typeOfTwoot !== 'draft' && this.newTwoot) {
         this.user.twoots.unshift({
           id: this.user.twoots.length + 1,
-          content: this.newTwoot,
-        });
+          content: this.newTwoot
+        })
       }
 
-      this.newTwoot = "";
-    },
+      this.newTwoot = ''
+    }
   },
   watch: {
-    followers(newFollowerCount, oldFollowerCount) {
+    followers (newFollowerCount, oldFollowerCount) {
       if (oldFollowerCount < newFollowerCount) {
-        console.log("Gained a follower!");
+        console.log('Gained a follower!')
       }
-    },
+    }
   },
-  mounted() {
-    this.addFollower();
+  mounted () {
+    this.addFollower()
   },
   computed: {
-    newTwootLength() {
-      return this.newTwoot.length;
-    },
-  },
-};
+    newTwootLength () {
+      return this.newTwoot.length
+    }
+  }
+}
 </script>
 
 <style scoped>
@@ -136,14 +136,14 @@ export default {
 }
 
 .length-limit-exceed {
-  display: flex; 
+  display: flex;
   justify-content: space-between;
   color: #ff0000;
 }
 
 hr {
   border: 0;
-  margin: 0;               
+  margin: 0;
   background-color:#d4d4d4;
   height: 1px;
 }
