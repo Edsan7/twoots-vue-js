@@ -1,16 +1,19 @@
 <template>
   <div>
-    <b-navbar toggleable="lg" type="dark" variant="info">
-      <b-navbar-brand href="#">NavBar</b-navbar-brand>
+    <b-navbar toggleable="lg" type="light" variant="dark">
+
+      <b-container>
+      <b-navbar-brand ><router-link class="link" to="/">Twotter</router-link></b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <b-nav-item ><router-link to="/user/1">User</router-link></b-nav-item>
-          <b-nav-item href="#" disabled>Disabled</b-nav-item>
+          <b-nav-item ><router-link class="link" to="/allusers/">Users List</router-link></b-nav-item>
+          <b-nav-item><router-link class="link" to="/newuser">New user</router-link></b-nav-item>
         </b-navbar-nav>
       </b-collapse>
+      </b-container>
     </b-navbar>
   </div>
 </template>
@@ -21,5 +24,10 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
+.link:hover{
+  text-decoration: none;
+  color: #FFFFFF;
+}
 </style>

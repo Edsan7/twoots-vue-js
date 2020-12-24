@@ -1,13 +1,17 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-  </div>
+  <b-container class="home">
+    <b-row>
+      <div class="mt-5"><h1>Welcome to Twotter!!!</h1></div>
+    </b-row>
+  </b-container>
 </template>
 
 <script>
-// @ is an alias to /src
 
 export default {
-  name: 'Home',
+  name: 'Home'
 }
 </script>
+
+<style scoped>
+</style>

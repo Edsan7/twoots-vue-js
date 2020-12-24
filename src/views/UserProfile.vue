@@ -1,16 +1,11 @@
 <template>
   <b-container class="mt-5 pb-5">
     <b-row>
-      <b-col cols="5" class="user-profile">
+      <b-col sm="12" lg="5">
         <div class="user-panel">
-          <h1>{{ user.username }}</h1>
-          <h4>{{ $route.params.userId }}</h4>
-          <hr />
-          <p>{{ user.github }}</p>
-          <div class="user-badge" v-if="user.isAdmin">Admin</div>
-          <div class="follower-count">
-            <strong>Followers: {{ followers }}</strong>
-          </div>
+          <UserPanel
+            :user="user"
+          />
           <br />
           <b-form @submit.prevent="createNewTwoot">
             <b-form-group label="Write your twoot:">
@@ -32,29 +27,37 @@
           </b-form>
         </div>
       </b-col>
-      <b-col cols="7">
-        <h3 style="text-align: left">Twoot's List</h3>
+
+      <b-col sm="12" lg="7">
+        <h3 style="text-align: left" class="mt-5">Twoot's List</h3>
         <hr />
-        <twoots
-          @favourite="toogleFavourite"
-          v-for="twoot in user.twoots"
-          :key="twoot.id"
-          :twoot="twoot"
-          :username="user.username"
-        />
+        <div v-if="user.twoots.length > 0">
+          <twoots
+            v-for="twoot in user.twoots"
+            :key="twoot.id"
+            :twoot="twoot"
+            :username="user.username"
+          />
+        </div>
+        <div v-else>Nothing in here</div>
       </b-col>
     </b-row>
   </b-container>
 </template>
 
 <script>
+import { mapState } from "vuex";
 import Twoots from "../components/Twoots";
+import UserPanel from "../components/UserPanel.vue";
 
 export default {
-  name: "UserProfile",
-  components: { Twoots },
+  components: {
+    Twoots,
+    UserPanel,
+  },
   data() {
     return {
+      user: {},
       followers: 0,
       newTwoot: "",
       typeOfTwoot: "instant",
@@ -62,28 +65,9 @@ export default {
         { value: "draft", text: "Draft" },
         { value: "instant", text: "Instant" },
       ],
-      user: {
-        id: 1,
-        username: "edsan7",
-        firstName: "Edson",
-        lastName: "Junior",
-        github: "github.com/Edsan7",
-        isAdmin: true,
-        twoots: [
-          { id: 1, content: "My first twoot!" },
-          { id: 2, content: "I'm learning Vue" },
-          { id: 3, content: "This is a list of twoots!" },
-        ],
-      },
     };
   },
   methods: {
-    addFollower() {
-      this.followers++;
-    },
-    toogleFavourite(id) {
-      console.log("Favourited Tweet " + id);
-    },
     createNewTwoot() {
       if (this.typeOfTwoot !== "draft" && this.newTwoot) {
         this.user.twoots.unshift({
@@ -95,17 +79,12 @@ export default {
       this.newTwoot = "";
     },
   },
-  watch: {
-    followers(newFollowerCount, oldFollowerCount) {
-      if (oldFollowerCount < newFollowerCount) {
-        console.log("Gained a follower!");
-      }
-    },
-  },
   mounted() {
-    this.addFollower();
+    const user = this.users[this.$route.params.userId - 1];
+    this.user = user;
   },
   computed: {
+    ...mapState(["users"]),
     newTwootLength() {
       return this.newTwoot.length;
     },
@@ -114,10 +93,6 @@ export default {
 </script>
 
 <style scoped>
-.user-profile {
-  margin: auto;
-  max-width: 800px;
-}
 .user-panel {
   display: flex;
   flex-direction: column;
@@ -127,26 +102,11 @@ export default {
   border: 1px solid #dfe3e8;
   text-align: left;
 }
-.user-badge {
-  background-color: #007bff;
-  border-radius: 5px;
-  padding: 2px 10px;
-  color: #ffffff;
-  font-weight: bold;
-  margin-right: auto;
-  margin-bottom: 3px;
-}
 
 .length-limit-exceed {
   display: flex;
+  font-weight: bold;
   justify-content: space-between;
-  color: #ff0000;
-}
-
-hr {
-  border: 0;
-  margin: 0;
-  background-color: #d4d4d4;
-  height: 1px;
+  color:#cf0000;
 }
 </style>
