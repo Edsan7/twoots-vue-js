@@ -4,8 +4,9 @@
       <b-col cols="5" class="user-profile">
         <div class="user-panel">
           <h1>{{ user.username }}</h1>
-          <hr>
-          <p>{{user.github }}</p>
+          <h4>{{ $route.params.userId }}</h4>
+          <hr />
+          <p>{{ user.github }}</p>
           <div class="user-badge" v-if="user.isAdmin">Admin</div>
           <div class="follower-count">
             <strong>Followers: {{ followers }}</strong>
@@ -18,8 +19,8 @@
                 rows="4"
                 required
               ></b-form-textarea>
-              <div :class="{'length-limit-exceed': newTwootLength > 150 }">
-                <p v-show="newTwootLength > 150"> Limit Exceed!</p>
+              <div :class="{ 'length-limit-exceed': newTwootLength > 150 }">
+                <p v-show="newTwootLength > 150">Limit Exceed!</p>
                 <p>{{ newTwootLength }}/150</p>
               </div>
               <b-select
@@ -47,68 +48,69 @@
 </template>
 
 <script>
-import Twoots from '../components/Twoots'
+import Twoots from "../components/Twoots";
+
 export default {
-  name: 'UserProfile',
+  name: "UserProfile",
   components: { Twoots },
-  data () {
+  data() {
     return {
       followers: 0,
-      newTwoot: '',
-      typeOfTwoot: 'instant',
+      newTwoot: "",
+      typeOfTwoot: "instant",
       twootOptions: [
-        { value: 'draft', text: 'Draft' },
-        { value: 'instant', text: 'Instant' }
+        { value: "draft", text: "Draft" },
+        { value: "instant", text: "Instant" },
       ],
       user: {
         id: 1,
-        username: 'edsan7',
-        firstName: 'Edson',
-        lastName: 'Junior',
-        github: 'github.com/Edsan7',
+        username: "edsan7",
+        firstName: "Edson",
+        lastName: "Junior",
+        github: "github.com/Edsan7",
         isAdmin: true,
         twoots: [
-          { id: 1, content: 'My first twoot!' },
+          { id: 1, content: "My first twoot!" },
           { id: 2, content: "I'm learning Vue" },
-          { id: 3, content: 'This is a list of twoots!' }
-        ]
-      }
-    }
+          { id: 3, content: "This is a list of twoots!" },
+        ],
+      },
+    };
   },
   methods: {
-    addFollower () {
-      this.followers++
+    addFollower() {
+      this.followers++;
     },
-    toogleFavourite (id) {
-      console.log('Favourited Tweet ' + id)
+    toogleFavourite(id) {
+      console.log("Favourited Tweet " + id);
     },
-    createNewTwoot () {
-      if (this.typeOfTwoot !== 'draft' && this.newTwoot) {
+    createNewTwoot() {
+      if (this.typeOfTwoot !== "draft" && this.newTwoot) {
         this.user.twoots.unshift({
           id: this.user.twoots.length + 1,
-          content: this.newTwoot
-        })
+          content: this.newTwoot,
+        });
       }
 
-      this.newTwoot = ''
-    }
+      this.newTwoot = "";
+    },
   },
   watch: {
-    followers (newFollowerCount, oldFollowerCount) {
+    followers(newFollowerCount, oldFollowerCount) {
       if (oldFollowerCount < newFollowerCount) {
-        console.log('Gained a follower!')
+        console.log("Gained a follower!");
       }
-    }
+    },
   },
-  mounted () {
-    this.addFollower()
+  mounted() {
+    this.addFollower();
   },
   computed: {
-    newTwootLength () {
-      return this.newTwoot.length
-    }
-  }
-}
+    newTwootLength() {
+      return this.newTwoot.length;
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -144,7 +146,7 @@ export default {
 hr {
   border: 0;
   margin: 0;
-  background-color:#d4d4d4;
+  background-color: #d4d4d4;
   height: 1px;
 }
 </style>
